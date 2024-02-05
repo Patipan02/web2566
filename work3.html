@@ -11,10 +11,19 @@
             <v-container>
                 <v-card style="max-width: 800px">
                     <v-card-title class="bg-orange-darken-4">{{title}}</v-card-title>
-                    <v-card-text class="pa-4"></v-card-text>
+                    <v-card-text class="pa-1"></v-card-text>
                     <v-card-text>
                         <template v-if="state==0">
-                            <v-btn @click='shuffle()'>เริ่มเล่น</v-btn>
+                            {{footer}}<br><br>
+                            <v-btn>
+                                <a href="index.html">
+                                  กลับหน้าหลัก
+                                </a>
+                              </v-btn>
+                              
+                              <v-btn @click="shuffle()">
+                                เริ่มเล่น
+                              </v-btn>
                         </template>
                         <template v-if="state==1">
                             <v-row>
