@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body>
+    <div id="myapp" class="container p-4"></div>
+    <script type="text/babel">
+      class App extends React.Component {
+        title = <div style={{
+  background: 'linear-gradient(45deg, violet, indigo, blue, green, yellow, orange, red)',
+  padding: '10px',
+  color: 'white'
+}}>
+  <b>Work4 :</b> เกมจับคู่ภาพ ด้วย ReactJS
+</div>;
+        footer = <div style={{ backgroundColor: 'orange', padding: '10px' }}>By 643020387-8  ปฏิภาณ โพธิมาศ IT <br/> 
+           College of Computing, Khon Kaen University</div>;
+        cardsOpened = [];
+
+        constructor() {
+          super();
+          this.state = {
+            scene: 0,
+            cards: [],
+            cardsCount: 0,
+          };
+        }
+
+        render() {
+          var sc = <MenuScene app={this}/>;  
+          if (this.state.scene === 1) sc = <GameScene app={this}/>;  
+          if (this.state.scene === 2) sc = <WinScene app={this}/>;  
+          return (
+            <div className="card">
+              <div className="card-header">{this.title} </div>
+              <div className="card-body"> {sc} </div>
+              <div className="card-footer"> {this.footer} </div>
+            </div>
+          );
+        }
+
+        start() {
+          this.cardsOpened = [];
+          this.setState({ scene: 1, cards: this.shuffle(), cardsCount: 36 });
+        }
+
+        checkCard() {
+          var a = this.cardsOpened[0];
+          var b = this.cardsOpened[1];
+          this.cardsOpened = [];
+          if (a.props.t === b.props.t) {
+            a.setState({ s: 2 });
+            b.setState({ s: 2 });
+            this.setState({ cardsCount: this.state.cardsCount - 2 });
+          } else {
+            a.setState({ s: 0 });
+            b.setState({ s: 0 });
+          }
+          if (this.state.cardsCount === 0) {
+            this.setState({ scene: 2 });
+          }
+        }
+
+        shuffle() {
+          var cards = [];
+          for (var i = 1; i <= 18; i++) {
+            cards.push(<Card t={i} app={this} />);
+            cards.push(<Card t={i} app={this} />);
+          }
+          for (var i = 1; i < 100; i++) {
+            var a = Math.round(Math.random() * 35);
+            var b = Math.round(Math.random() * 35);
+            var t = cards[a];
+            cards[a] = cards[b];
+            cards[b] = t;
+          }
+          return cards;
+        }
+      }
+
+      function MenuScene({app}) {
+        return (
+          <div>
+            <a href="index.html" className="btn btn-warning mx-2">
+              กลับหน้าหลัก
+            </a>
+            <button
+              className="btn btn-primary mx-2"
+              onClick={() => app.start()}
+            > เริ่มเล่น </button>
+          </div>
+        );
+      }
+
+      function GameScene({ app }) {
+        return (
+          <div>
+            จำนวนภาพที่เหลือ {app.state.cardsCount} ใบ
+            <div className="row p-2">{app.state.cards}</div>
+            <button
+              className="btn btn-danger mx-2"
+              onClick={() => app.setState({ scene: 0 })}
+            >
+              เลิกเล่น
+            </button>
+          </div>
+        );
+      }
+
+      class Card extends React.Component {
+  state = { s: 0 };
+
+  render() {
+    var img = (
+      <img
+        src="Pic/0.png"
+        width="100%"
+        onClick={() => this.imgClick()}
+      />
+    );
+    if (this.state.s === 1) {
+      img = <img src={"Pic/" + this.props.t + ".png"} width="100%" />;
+    }
+    if (this.state.s === 2) {
+      img = <div/>;
+    }
+    return (
+      <div className="col-2">
+        {img}
+      </div>
+    );
+  }
+
+  imgClick = () => {
+    var app = this.props.app;
+    if (app.cardsOpened.length < 2) {
+      app.cardsOpened.push(this);
+      this.setState({ s: 1 });
+      if (app.cardsOpened.length === 2) {
+        setTimeout(() => app.checkCard(), 2000);
+      }
+    }
+  };
+}
+
+
+      function WinScene({app}) {
+        return (
+          <div>
+            ยินดีด้วยคุณชนะแล้ว
+            <button className="btn btn-danger mx-2">
+              ตกลง
+            </button>
+          </div>
+        );
+      }
+
+      const container = document.getElementById('myapp');
+      const root = ReactDOM.createRoot(container);
+      root.render(<App />);
+    </script>
+  </body>
+</html>

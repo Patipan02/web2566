@@ -1,0 +1,410 @@
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, maximum-scale=1">
+    <title>Jurassic Park</title>
+    <link rel="icon" href="./project/Logo.ico" type="image/x-icon">
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.2.0/dist/aframe-extras.min.js"></script>
+    <script
+        src="https://unpkg.com/aframe-environment-component@1.3.3/dist/aframe-environment-component.min.js"></script>
+</head>
+
+<body>
+
+    <a-scene environment="preset: forest; lighting: point; lightPosition: -5 10 0;">
+        <a-assets preload="auto">
+            <a-asset-item id="Tyranno" response-type="arraybuffer" src="./project/Dinosaur/tyranno.glb">
+            </a-asset-item>
+            <a-asset-item id="Pterodactyl" response-type="arraybuffer" src="./project/Dinosaur/Pterodactyl.glb">
+            </a-asset-item>
+            <a-asset-item id="Stegosaurus" response-type="arraybuffer" src="./project/Dinosaur/Stegosaurus.glb">
+            </a-asset-item>
+            <a-asset-item id="Velociraptor" response-type="arraybuffer" src="./project/Dinosaur/Velociraptor.glb">
+            </a-asset-item>
+            <a-asset-item id="Triceratop" response-type="arraybuffer" src="./project/Dinosaur/Triceratops.glb">
+            </a-asset-item>
+            <audio id="AudioBackground" src="./project/Audio/Sound.mp3" preload="auto"></audio>
+            <audio id="AudioTyrano" src="./project/Audio/Tyranno Roar.mp3" preload="auto"></audio>
+            <audio id="AudioTricer" src="./project/Audio/Triceratops Stomp.mp3" preload="auto"></audio>
+            <audio id="AudiodescribeTyranno" src="./project/Audio/AudiodescribeTyranno.mp3" preload="auto"></audio>
+            <audio id="AudiodescribeTricer" src="./project/Audio/AudiodescribeTricera.mp3" preload="auto"></audio>
+            <audio id="AudiodescribePtero" src="./project/Audio/AudiodescribePtero.mp3" preload="auto"></audio>
+            <audio id="AudiodescribeStego" src="./project/Audio/AudiodescribeStego.mp3" preload="auto"></audio>
+            <audio id="AudiodescribeVelo" src="./project/Audio/AudiodescribeVeloce.mp3" preload="auto"></audio>
+        </a-assets>
+
+        <a-entity sound="src: #AudioBackground"></a-entity>
+
+        <a-entity id="rig" position="0 0 10" movement-controls="constrainToNavMesh: true;
+                           controls: checkpoint, gamepad, trackpad, keyboard, nipple;" position="-7 0 21">
+            <a-entity camera position="0 1.6 0" look-controls="pointerLockEnabled: true">
+                <a-cursor></a-cursor>
+            </a-entity>
+        </a-entity>
+
+        <!-- Tyranno Model -->
+        <a-entity id="tyranno" gltf-model="#Tyranno" position="0 0 0" scale="2 2 2" rotation="0 -90 0"
+            animation-mixer="clip: Idle2;">
+        </a-entity>
+        <!-- กล่องบรรยาย -->
+        <a-box id="describeTyranno" color="#FFAA00" position="0 0.315 7.893" sound="src:#AudiodescribeTyranno; volume: 5;">
+            <a-sphere color="#00AA00" radius="0.25" position="-0.5 1 0.008" playtyranno></a-sphere>
+            <a-sphere color="#AA0000" radius="0.25" position="0.5 1 0.008" stoptyranno></a-sphere>
+        </a-box>
+
+        <!-- Triceratop Model -->
+        <a-entity id="triceratop" gltf-model="#Triceratop" position="16 0 0" scale="2 2 2" rotation="0 -90 0"
+            animation-mixer="clip: Idle;">
+        </a-entity>
+        <!-- กล่องบรรยาย -->
+        <a-box id="describeTricer" color="#FFAA00" position="16 0.315 7.893" sound="src:#AudiodescribeTricer; volume: 5;">
+            <a-sphere color="#00AA00" radius="0.25" position="-0.5 1 0.008" playtricer></a-sphere>
+            <a-sphere color="#AA0000" radius="0.25" position="0.5 1 0.008" stoptricer></a-sphere>
+        </a-box>
+
+        <!-- Pterodactyl Model -->
+        <a-entity id="pterodactyl" gltf-model="#Pterodactyl" position="-16 0 0" scale="8 8 8" rotation="0 0 0"
+            animation-mixer="clip: flying;">
+        </a-entity>
+        <!-- กล่องบรรยาย -->
+        <a-box id="describePtero" color="#FFAA00" position="-16 0.315 7.893" sound="src:#AudiodescribePtero; volume: 5;">
+            <a-sphere color="#00AA00" radius="0.25" position="-0.5 1 0.008" playptero></a-sphere>
+            <a-sphere color="#AA0000" radius="0.25" position="0.5 1 0.008" stopptero></a-sphere>
+        </a-box>
+
+        <!-- Stegosaurus Model -->
+        <a-entity id="stegosaurus" gltf-model="#Stegosaurus" position="30 0.3 0.040" scale="2.6 2.6 2.6" rotation="0 -90 0"
+            animation-mixer="clip: Idle;">
+        </a-entity>
+        <!-- กล่องบรรยาย -->
+        <a-box id="describeStego" color="#FFAA00" position="30 0.315 7.893" sound="src:#AudiodescribeStego; volume: 5;">
+            <a-sphere color="#00AA00" radius="0.25" position="-0.5 1 0.008" playstego></a-sphere>
+            <a-sphere color="#AA0000" radius="0.25" position="0.5 1 0.008" stopstego></a-sphere>
+        </a-box>
+
+        <!-- Velociraptor Model -->
+        <a-entity id="velociraptor" gltf-model="#Velociraptor" position="-31 0 -4" scale="2 2 2" rotation="0 2.148 0"
+            animation-mixer="clip: Idle_02;">
+        </a-entity>
+        <!-- กล่องบรรยาย -->
+        <a-box id="describeVelo" color="#FFAA00" position="-31 0.315 7.893" sound="src:#AudiodescribeVelo; volume: 5;">
+            <a-sphere color="#00AA00" radius="0.25" position="-0.5 1 0.008" playvelo></a-sphere>
+            <a-sphere color="#AA0000" radius="0.25" position="0.5 1 0.008" stopvelo></a-sphere>
+        </a-box>
+
+
+        <!-- Tyranno Animation -->
+        <a-entity id="RoarBox" position="-0.788 7.5 -3.5" scale="0.3 0.3 0.3"
+            sound="src: #AudioTyrano;
+            on: click;
+            volume: 10;" onclick="TyrannoAnimation('Roar');">
+            <a-image src="project\Pic\roar.png" width="4" height="4" material="opacity: 0.5"></a-image>
+        </a-entity>
+
+
+        <a-entity id="AttackBox" position="0.720 7.5 -3.5" scale="0.3 0.3 0.3" onclick="TyrannoAnimation('Attack');">
+            <a-image src="project\Pic\bite.png" width="4" height="4" material="opacity: 0.5"></a-image>
+        </a-entity>
+
+
+        <a-entity id="FallBox" position="2.350 7.5 -3.5" scale="0.3 0.3 0.3" onclick="TyrannoAnimation('Fall');">
+            <a-image src="project\Pic\die.png" width="4" height="4" material="opacity: 0.5"></a-image>
+        </a-entity>
+
+
+        <a-entity id="HeadButtBox" position="3.5 5.5 -3.5" scale="0.3 0.3 0.3" onclick="TyrannoAnimation('HeadButt');">
+            <a-image src="project\Pic\headbutt.png" width="4" height="4" material="opacity: 0.5"></a-image>
+        </a-entity>
+
+        <a-entity id="WalkBox" position="-4 5.5 -3.5" scale="0.3 0.3 0.3" onclick="TyrannoAnimation('Walk');">
+            <a-image src="project\Pic\walk.png" width="4" height="4" material="opacity: 0.5"></a-image>
+        </a-entity>
+
+        <a-entity id="Idle2box" position="-2.438 7.5 -3.5" scale="0.3 0.3 0.3" onclick="TyrannoAnimation('Idle2');">
+            <a-image src="project\Pic\Idle.png" width="4" height="4" material="opacity: 0.5"></a-image>
+        </a-entity>
+
+        <!-- Triceratop Animation -->
+        <a-entity id="TriIdleBox" position="16 7.5 -3.5" scale="0.3 0.3 0.3" onclick="TriceratopAnimation('Run');">
+            <a-image src="project\Pic\walk.png" width="4" height="4" material="opacity: 0.5"></a-image>
+        </a-entity>
+
+        <a-entity id="Horndig" position="18 7.5 -3.5" scale="0.3 0.3 0.3" onclick="TriceratopAnimation('Horn Dig');">
+            <a-image src="project\Pic\horn.png" width="4" height="4" material="opacity: 0.5"></a-image>
+        </a-entity>
+        
+
+        <a-entity id="Stomp" position="14 7.5 -3.5" scale="0.3 0.3 0.3" sound="src: #AudioTricer; on: click; volume: 10;" onclick="TriceratopAnimation('Stomp');">
+            <a-image src="project\Pic\stomp.png" width="4" height="4" material="opacity: 0.5"></a-image>
+        </a-entity>
+        
+
+        <a-entity id="DeathBox" position="14 5.5 -3.5" scale="0.3 0.3 0.3" onclick="TriceratopAnimation('Death');">
+            <a-image src="project\Pic\die.png" width="4" height="4" material="opacity: 0.5"></a-image>
+        </a-entity>
+
+        <a-entity id="BiteBox" position="18 5.5 -3.5" scale="0.3 0.3 0.3" onclick="TriceratopAnimation('Bite');">
+            <a-image src="project\Pic\bite.png" width="4" height="4" material="opacity: 0.5"></a-image>
+        </a-entity>
+
+        <!-- Pterodactyl Animation -->
+        <a-entity id="flying" position="-16 7.5 -3.5" scale="0.3 0.3 0.3" onclick="PterodactylAnimation('flying');">
+            <a-image src="project\Pic\fly.png" width="4" height="4" material="opacity: 0.5"></a-image>
+        </a-entity>
+
+        <a-entity id="walking" position="-18 7.5 -3.5 " scale="0.3 0.3 0.3" onclick="PterodactylAnimation('walking');">
+            <a-image src="project\Pic\walk.png" width="4" height="4" material="opacity: 0.5"></a-image>
+        </a-entity>
+
+        <a-entity id="standing" position="-14 7.5 -3.5" scale="0.3 0.3 0.3" onclick="PterodactylAnimation('standing');">
+            <a-image src="project\Pic\Idle.png" width="4" height="4" material="opacity: 0.5"></a-image>
+        </a-entity>
+
+        <!-- Stegosaurus -->
+
+        <a-entity id="Angry" position="30 7.5 -3.5" scale="0.3 0.3 0.3" onclick="StegosaurusAnimation('Angry Idle');">
+            <a-image src="project\Pic\angry.png" width="4" height="4" material="opacity: 0.5"></a-image>
+        </a-entity>
+
+        <a-entity id="Bite" position="32 7.5 -3.5" scale="0.3 0.3 0.3" onclick="StegosaurusAnimation('Bite');">
+            <a-image src="project\Pic\bite.png" width="4" height="4" material="opacity: 0.5"></a-image>
+        </a-entity>
+
+        <a-entity id="Crush" position="28 7.5 -3.5" scale="0.3 0.3 0.3" onclick="StegosaurusAnimation('Crush');">
+            <a-image src="project\Pic\dash.png" width="4" height="4" material="opacity: 0.5"></a-image>
+        </a-entity>
+
+        <a-entity id="Death" position="28 5.5 -3.5" scale="0.3 0.3 0.3" onclick="StegosaurusAnimation('Death');">
+            <a-image src="project\Pic\die.png" width="4" height="4" material="opacity: 0.5"></a-image>
+        </a-entity>
+
+        <a-entity id="Run" position="32 5.5 -3.5" scale="0.3 0.3 0.3" onclick="StegosaurusAnimation('Run');">
+            <a-image src="project\Pic\walk.png" width="4" height="4" material="opacity: 0.5"></a-image>
+        </a-entity>
+
+        <!-- Velociraptor Animation -->
+        <a-entity id="Eat" position="-29 7.5 -3.5" scale="0.3 0.3 0.3" onclick="VelociraptorAnimation('Eat Prey');">
+            <a-image src="project\Pic\bite.png" width="4" height="4" material="opacity: 0.5"></a-image>
+        </a-entity>
+        
+
+        <a-entity id="Tackle" position="-31 7.5 -3.5" scale="0.3 0.3 0.3" onclick="VelociraptorAnimation('Tackle');">
+            <a-image src="project\Pic\dash.png" width="4" height="4" material=" opacity: 0.5"></a-image>
+        </a-entity>
+
+        <a-entity id="Death" position="-33 7.5 -3.5" scale="0.3 0.3 0.3" onclick="VelociraptorAnimation('Death_01');">
+            <a-image src="project\Pic\die.png" width="4" height="4" material=" opacity: 0.5"></a-image>
+        </a-entity>
+        
+
+        <a-entity id="Walk" position="-29 5.5 -3.5" scale="0.3 0.3 0.3" onclick="VelociraptorAnimation('Walk');">
+            <a-image src="project\Pic\walk.png" width="4" height="4" material="opacity: 0.5"></a-image>
+        </a-entity>
+        
+
+        <a-entity id="Idle" position="-33 5.5 -3.5" scale="0.3 0.3 0.3" onclick="VelociraptorAnimation('Idle_02');">
+            <a-image src="project\Pic\Idle.png" width="4" height="4" material="opacity: 0.5"></a-image>
+        </a-entity>
+
+
+
+        <!-- Position -->
+        <a-entity id="Position1" checkpoint="offset: 0 0 0;" position="0 0.8 10" scale="0.2 0.2 0.2"
+            geometry="primitive: box; width: 4; height: 4; depth: 4;" material="color: #33FF66; opacity: 0.5" levitate>
+        </a-entity>
+
+        <a-entity id="Position2" checkpoint="offset: 0 0 0;" position="16 0.8 10" scale="0.2 0.2 0.2"
+            geometry="primitive: box; width: 4; height: 4; depth: 4;" material="color: #33FF66; opacity: 0.5" levitate>
+        </a-entity>
+
+        <a-entity id="Position3" checkpoint="offset: 0 0 0;" position="-16 0.8 10" scale="0.2 0.2 0.2"
+            geometry="primitive: box; width: 4; height: 4; depth: 4;" material="color: #33FF66; opacity: 0.5" levitate>
+        </a-entity>
+
+        <a-entity id="Position4" checkpoint="offset: 0 0 0;" position="30 0.8 10" scale="0.2 0.2 0.2"
+            geometry="primitive: box; width: 4; height: 4; depth: 4;" material="color: #33FF66; opacity: 0.5" levitate>
+        </a-entity>
+
+        <a-entity id="Position5" checkpoint="offset: 0 0 0;" position="-31 0.8 10" scale="0.2 0.2 0.2"
+            geometry="primitive: box; width: 4; height: 4; depth: 4;" material="color: #33FF66; opacity: 0.5" levitate>
+        </a-entity>
+    </a-scene>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelector('a-scene').addEventListener('click', function () {
+                playSound();
+                adjustVolume();
+            });
+        });
+
+        // เพลงพื้นหลัง
+        function playSound() {
+            var audio = document.querySelector('#AudioBackground');
+            audio.loop = true;
+            audio.play();
+        }
+        function adjustVolume() {
+            var audio = document.querySelector('#AudioBackground');
+            audio.volume = 0.03; // ค่าระหว่าง 0 ถึง 1
+        }
+
+        // เสียงบรรยาย
+        AFRAME.registerComponent('playtyranno', {
+            init: function (){
+                var describe = document.querySelector('#describeTyranno');
+                this.el.addEventListener('click', function (){
+                    describe.components.sound.playSound();
+                });
+            }
+        });
+
+        AFRAME.registerComponent('stoptyranno', {
+            init: function (){
+                var describe = document.querySelector('#describeTyranno');
+                this.el.addEventListener('click', function (){
+                    describe.components.sound.stopSound();
+                });
+            }
+        });
+
+        AFRAME.registerComponent('playtricer', {
+            init: function (){
+                var describe = document.querySelector('#describeTricer');
+                this.el.addEventListener('click', function (){
+                    describe.components.sound.playSound();
+                });
+            }
+        });
+
+        AFRAME.registerComponent('stoptricer', {
+            init: function (){
+                var describe = document.querySelector('#describeTricer');
+                this.el.addEventListener('click', function (){
+                    describe.components.sound.stopSound();
+                });
+            }
+        });
+
+        AFRAME.registerComponent('playptero', {
+            init: function (){
+                var describe = document.querySelector('#describePtero');
+                this.el.addEventListener('click', function (){
+                    describe.components.sound.playSound();
+                });
+            }
+        });
+
+        AFRAME.registerComponent('stopptero', {
+            init: function (){
+                var describe = document.querySelector('#describePtero');
+                this.el.addEventListener('click', function (){
+                    describe.components.sound.stopSound();
+                });
+            }
+        });
+
+        AFRAME.registerComponent('playstego', {
+            init: function (){
+                var describe = document.querySelector('#describeStego');
+                this.el.addEventListener('click', function (){
+                    describe.components.sound.playSound();
+                });
+            }
+        });
+
+        AFRAME.registerComponent('stopstego', {
+            init: function (){
+                var describe = document.querySelector('#describeStego');
+                this.el.addEventListener('click', function (){
+                    describe.components.sound.stopSound();
+                });
+            }
+        });
+
+        AFRAME.registerComponent('playvelo', {
+            init: function (){
+                var describe = document.querySelector('#describeVelo');
+                this.el.addEventListener('click', function (){
+                    describe.components.sound.playSound();
+                });
+            }
+        });
+
+        AFRAME.registerComponent('stopvelo', {
+            init: function (){
+                var describe = document.querySelector('#describeVelo');
+                this.el.addEventListener('click', function (){
+                    describe.components.sound.stopSound();
+                });
+            }
+        });
+
+
+
+
+        // เพิ่มฟังก์ชันเปลี่ยน animation
+        function TyrannoAnimation(newAnimation) {
+            var dinosaurEntity = document.getElementById("tyranno");
+            var animationMixer = dinosaurEntity.components["animation-mixer"];
+
+            if (animationMixer && animationMixer.data) {
+                animationMixer.data.clip = newAnimation;
+                animationMixer.stopAction(); // หยุดการเล่น animation ที่กำลังเล่น
+                animationMixer.playAction(); // เริ่มเล่น animation ที่กำหนด
+            }
+        }
+
+        function TriceratopAnimation(newAnimation) {
+            var triceratopsEntity = document.getElementById("triceratop");
+            var triAnimationMixer = triceratopsEntity.components["animation-mixer"];
+
+            if (triAnimationMixer && triAnimationMixer.data) {
+                triAnimationMixer.data.clip = newAnimation;
+                triAnimationMixer.stopAction(); // หยุดการเล่น animation ที่กำลังเล่น
+                triAnimationMixer.playAction(); // เริ่มเล่น animation ที่กำหนด
+            }
+        }
+
+        function PterodactylAnimation(newAnimation) {
+            var triceratopsEntity = document.getElementById("pterodactyl");
+            var triAnimationMixer = triceratopsEntity.components["animation-mixer"];
+
+            if (triAnimationMixer && triAnimationMixer.data) {
+                triAnimationMixer.data.clip = newAnimation;
+                triAnimationMixer.stopAction(); // หยุดการเล่น animation ที่กำลังเล่น
+                triAnimationMixer.playAction(); // เริ่มเล่น animation ที่กำหนด
+            }
+        }
+
+        function StegosaurusAnimation(newAnimation) {
+            var triceratopsEntity = document.getElementById("stegosaurus");
+            var triAnimationMixer = triceratopsEntity.components["animation-mixer"];
+
+            if (triAnimationMixer && triAnimationMixer.data) {
+                triAnimationMixer.data.clip = newAnimation;
+                triAnimationMixer.stopAction(); // หยุดการเล่น animation ที่กำลังเล่น
+                triAnimationMixer.playAction(); // เริ่มเล่น animation ที่กำหนด
+            }
+        }
+
+        function VelociraptorAnimation(newAnimation) {
+            var triceratopsEntity = document.getElementById("velociraptor");
+            var triAnimationMixer = triceratopsEntity.components["animation-mixer"];
+
+            if (triAnimationMixer && triAnimationMixer.data) {
+                triAnimationMixer.data.clip = newAnimation;
+                triAnimationMixer.stopAction(); // หยุดการเล่น animation ที่กำลังเล่น
+                triAnimationMixer.playAction(); // เริ่มเล่น animation ที่กำหนด
+            }
+        }
+
+    </script>
+</body>
+
+</html>
